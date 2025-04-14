@@ -1,6 +1,7 @@
 using System;
 using ClubeLeitura.ConsoleApp.ModuloAmigo;
 using ClubeLeitura.ConsoleApp.ModuloCaixa;
+using ClubeLeitura.ConsoleApp.ModuloRevista;
 
 namespace ClubeLeitura.ConsoleApp.Compartilhado
 {
@@ -12,6 +13,9 @@ namespace ClubeLeitura.ConsoleApp.Compartilhado
         private RepositorioCaixa repositorioCaixa;
         private TelaCaixa telaCaixa;
 
+        private RepositorioRevista repositorioRevista;
+        private TelaRevista telaRevista;
+
         public MenuPrincipal()
         {
             repositorioAmigo = new RepositorioAmigo();
@@ -19,6 +23,16 @@ namespace ClubeLeitura.ConsoleApp.Compartilhado
 
             repositorioCaixa = new RepositorioCaixa();
             telaCaixa = new TelaCaixa(repositorioCaixa);
+
+            repositorioRevista = new RepositorioRevista();
+            telaRevista = new TelaRevista(repositorioRevista, repositorioCaixa);
+
+            ConfigurarRelacionamentos();
+        }
+
+        private void ConfigurarRelacionamentos()
+        {
+            telaCaixa.ConfigurarRepositorioRevista(repositorioRevista);
         }
 
         public void ExecutarAplicacao()
@@ -29,7 +43,7 @@ namespace ClubeLeitura.ConsoleApp.Compartilhado
                 Console.WriteLine("=== Clube de Leitura ===");
                 Console.WriteLine("1 - Módulo de Amigos");
                 Console.WriteLine("2 - Módulo de Caixas");
-                Console.WriteLine("3 - Módulo de Revistas (Em construção)");
+                Console.WriteLine("3 - Módulo de Revistas");
                 Console.WriteLine("4 - Módulo de Empréstimos (Em construção)");
                 Console.WriteLine("5 - Sair");
                 Console.WriteLine();
@@ -46,8 +60,7 @@ namespace ClubeLeitura.ConsoleApp.Compartilhado
                         telaCaixa.Menu();
                         break;
                     case "3":
-                        Console.WriteLine("Módulo em construção!");
-                        Console.ReadLine();
+                        telaRevista.Menu();
                         break;
                     case "4":
                         Console.WriteLine("Módulo em construção!");

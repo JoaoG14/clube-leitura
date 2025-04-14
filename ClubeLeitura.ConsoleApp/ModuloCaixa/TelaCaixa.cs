@@ -1,15 +1,22 @@
 using System;
 using System.Collections.Generic;
+using ClubeLeitura.ConsoleApp.ModuloRevista;
 
 namespace ClubeLeitura.ConsoleApp.ModuloCaixa
 {
     public class TelaCaixa
     {
         private RepositorioCaixa repositorioCaixa;
+        private RepositorioRevista repositorioRevista;
 
         public TelaCaixa(RepositorioCaixa repositorioCaixa)
         {
             this.repositorioCaixa = repositorioCaixa;
+        }
+
+        public void ConfigurarRepositorioRevista(RepositorioRevista repositorioRevista)
+        {
+            this.repositorioRevista = repositorioRevista;
         }
 
         public void Menu()
@@ -161,7 +168,12 @@ namespace ClubeLeitura.ConsoleApp.ModuloCaixa
                 return;
             }
 
-            // Aqui verificaríamos se a caixa tem revistas vinculadas (a implementar quando o módulo de revistas existir)
+            if (repositorioRevista != null && repositorioRevista.VerificarRevistasNaCaixa(id))
+            {
+                Console.WriteLine("Não é possível excluir uma caixa que possui revistas vinculadas!");
+                Console.ReadLine();
+                return;
+            }
 
             repositorioCaixa.Excluir(id);
             Console.WriteLine("Caixa excluída com sucesso!");
