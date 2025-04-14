@@ -1,15 +1,22 @@
 using System;
 using System.Collections.Generic;
+using ClubeLeitura.ConsoleApp.ModuloEmprestimo;
 
 namespace ClubeLeitura.ConsoleApp.ModuloAmigo
 {
     public class TelaAmigo
     {
         private RepositorioAmigo repositorioAmigo;
+        private RepositorioEmprestimo repositorioEmprestimo;
 
         public TelaAmigo(RepositorioAmigo repositorioAmigo)
         {
             this.repositorioAmigo = repositorioAmigo;
+        }
+
+        public void ConfigurarRepositorioEmprestimo(RepositorioEmprestimo repositorioEmprestimo)
+        {
+            this.repositorioEmprestimo = repositorioEmprestimo;
         }
 
         public void Menu()
@@ -161,7 +168,12 @@ namespace ClubeLeitura.ConsoleApp.ModuloAmigo
                 return;
             }
 
-            // Aqui verificaríamos se o amigo tem empréstimos vinculados (a implementar quando o módulo de empréstimos existir)
+            if (repositorioEmprestimo != null && repositorioEmprestimo.VerificarEmprestimosPorAmigo(id))
+            {
+                Console.WriteLine("Não é possível excluir um amigo que possui empréstimos vinculados!");
+                Console.ReadLine();
+                return;
+            }
 
             repositorioAmigo.Excluir(id);
             Console.WriteLine("Amigo excluído com sucesso!");

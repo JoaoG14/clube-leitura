@@ -2,6 +2,7 @@ using System;
 using ClubeLeitura.ConsoleApp.ModuloAmigo;
 using ClubeLeitura.ConsoleApp.ModuloCaixa;
 using ClubeLeitura.ConsoleApp.ModuloRevista;
+using ClubeLeitura.ConsoleApp.ModuloEmprestimo;
 
 namespace ClubeLeitura.ConsoleApp.Compartilhado
 {
@@ -16,6 +17,9 @@ namespace ClubeLeitura.ConsoleApp.Compartilhado
         private RepositorioRevista repositorioRevista;
         private TelaRevista telaRevista;
 
+        private RepositorioEmprestimo repositorioEmprestimo;
+        private TelaEmprestimo telaEmprestimo;
+
         public MenuPrincipal()
         {
             repositorioAmigo = new RepositorioAmigo();
@@ -27,12 +31,17 @@ namespace ClubeLeitura.ConsoleApp.Compartilhado
             repositorioRevista = new RepositorioRevista();
             telaRevista = new TelaRevista(repositorioRevista, repositorioCaixa);
 
+            repositorioEmprestimo = new RepositorioEmprestimo();
+            telaEmprestimo = new TelaEmprestimo(repositorioEmprestimo, repositorioAmigo, repositorioRevista);
+
             ConfigurarRelacionamentos();
         }
 
         private void ConfigurarRelacionamentos()
         {
             telaCaixa.ConfigurarRepositorioRevista(repositorioRevista);
+            telaAmigo.ConfigurarRepositorioEmprestimo(repositorioEmprestimo);
+            telaRevista.ConfigurarRepositorioEmprestimo(repositorioEmprestimo);
         }
 
         public void ExecutarAplicacao()
@@ -44,7 +53,7 @@ namespace ClubeLeitura.ConsoleApp.Compartilhado
                 Console.WriteLine("1 - Módulo de Amigos");
                 Console.WriteLine("2 - Módulo de Caixas");
                 Console.WriteLine("3 - Módulo de Revistas");
-                Console.WriteLine("4 - Módulo de Empréstimos (Em construção)");
+                Console.WriteLine("4 - Módulo de Empréstimos");
                 Console.WriteLine("5 - Sair");
                 Console.WriteLine();
                 Console.Write("Digite a opção desejada: ");
@@ -63,8 +72,7 @@ namespace ClubeLeitura.ConsoleApp.Compartilhado
                         telaRevista.Menu();
                         break;
                     case "4":
-                        Console.WriteLine("Módulo em construção!");
-                        Console.ReadLine();
+                        telaEmprestimo.Menu();
                         break;
                     case "5":
                         Console.WriteLine("Aplicação encerrada.");

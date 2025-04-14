@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using ClubeLeitura.ConsoleApp.ModuloCaixa;
+using ClubeLeitura.ConsoleApp.ModuloEmprestimo;
 
 namespace ClubeLeitura.ConsoleApp.ModuloRevista
 {
@@ -8,11 +9,17 @@ namespace ClubeLeitura.ConsoleApp.ModuloRevista
     {
         private RepositorioRevista repositorioRevista;
         private RepositorioCaixa repositorioCaixa;
+        private RepositorioEmprestimo repositorioEmprestimo;
 
         public TelaRevista(RepositorioRevista repositorioRevista, RepositorioCaixa repositorioCaixa)
         {
             this.repositorioRevista = repositorioRevista;
             this.repositorioCaixa = repositorioCaixa;
+        }
+
+        public void ConfigurarRepositorioEmprestimo(RepositorioEmprestimo repositorioEmprestimo)
+        {
+            this.repositorioEmprestimo = repositorioEmprestimo;
         }
 
         public void Menu()
@@ -124,6 +131,13 @@ namespace ClubeLeitura.ConsoleApp.ModuloRevista
                 return;
             }
 
+            if (revistaSelecionada.Status == "Emprestada")
+            {
+                Console.WriteLine("Não é possível editar uma revista emprestada!");
+                Console.ReadLine();
+                return;
+            }
+
             List<Caixa> caixas = repositorioCaixa.SelecionarTodos();
             Revista revistaAtualizada = ObterDadosRevista(caixas);
 
@@ -177,9 +191,9 @@ namespace ClubeLeitura.ConsoleApp.ModuloRevista
                 return;
             }
 
-            if (revistaSelecionada.Status == "Emprestada")
+            if (repositorioEmprestimo != null && repositorioEmprestimo.VerificarEmprestimosPorRevista(id))
             {
-                Console.WriteLine("Não é possível excluir uma revista emprestada!");
+                Console.WriteLine("Não é possível excluir uma revista com empréstimos em aberto!");
                 Console.ReadLine();
                 return;
             }
