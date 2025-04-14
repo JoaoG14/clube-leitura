@@ -1,5 +1,6 @@
 using System;
 using ClubeLeitura.ConsoleApp.ModuloAmigo;
+using ClubeLeitura.ConsoleApp.ModuloCaixa;
 
 namespace ClubeLeitura.ConsoleApp.Compartilhado
 {
@@ -8,10 +9,16 @@ namespace ClubeLeitura.ConsoleApp.Compartilhado
         private RepositorioAmigo repositorioAmigo;
         private TelaAmigo telaAmigo;
 
+        private RepositorioCaixa repositorioCaixa;
+        private TelaCaixa telaCaixa;
+
         public MenuPrincipal()
         {
             repositorioAmigo = new RepositorioAmigo();
             telaAmigo = new TelaAmigo(repositorioAmigo);
+
+            repositorioCaixa = new RepositorioCaixa();
+            telaCaixa = new TelaCaixa(repositorioCaixa);
         }
 
         public void ExecutarAplicacao()
@@ -21,7 +28,7 @@ namespace ClubeLeitura.ConsoleApp.Compartilhado
                 Console.Clear();
                 Console.WriteLine("=== Clube de Leitura ===");
                 Console.WriteLine("1 - Módulo de Amigos");
-                Console.WriteLine("2 - Módulo de Caixas (Em construção)");
+                Console.WriteLine("2 - Módulo de Caixas");
                 Console.WriteLine("3 - Módulo de Revistas (Em construção)");
                 Console.WriteLine("4 - Módulo de Empréstimos (Em construção)");
                 Console.WriteLine("5 - Sair");
@@ -36,8 +43,7 @@ namespace ClubeLeitura.ConsoleApp.Compartilhado
                         telaAmigo.Menu();
                         break;
                     case "2":
-                        Console.WriteLine("Módulo em construção!");
-                        Console.ReadLine();
+                        telaCaixa.Menu();
                         break;
                     case "3":
                         Console.WriteLine("Módulo em construção!");
