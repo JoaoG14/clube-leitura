@@ -50,10 +50,10 @@ namespace ClubeLeitura.ConsoleApp.Compartilhado
             {
                 Console.Clear();
                 Console.WriteLine("=== Clube de Leitura ===");
-                Console.WriteLine("1 - Módulo de Amigos");
-                Console.WriteLine("2 - Módulo de Caixas");
-                Console.WriteLine("3 - Módulo de Revistas");
-                Console.WriteLine("4 - Módulo de Empréstimos");
+                Console.WriteLine("1 - Amigos");
+                Console.WriteLine("2 - Caixas");
+                Console.WriteLine("3 - Revistas");
+                Console.WriteLine("4 - Empréstimos");
                 Console.WriteLine("5 - Sair");
                 Console.WriteLine();
                 Console.Write("Digite a opção desejada: ");
